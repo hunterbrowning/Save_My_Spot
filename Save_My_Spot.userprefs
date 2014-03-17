@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Save_My_Spot/PlayBackScreen.cs">
+    <Files>
+      <File FileName="Save_My_Spot/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="Save_My_Spot/BookShelfFinal.cs" Line="1" Column="1" />
+      <File FileName="Save_My_Spot/PlayBackScreen.cs" Line="99" Column="4" />
+      <File FileName="Save_My_Spot/Info.plist" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Save__My__Spot>
+    <MonoDevelop.MacDev.AppleDevelopmentTeam DeveloperId="SAFNEFQZKU" TeamId="P7587FA8XX" />
+  </MonoDevelop.Ide.ItemProperties.Save__My__Spot>
+</Properties>
