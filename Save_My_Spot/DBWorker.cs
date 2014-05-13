@@ -22,7 +22,7 @@ namespace Save_My_Spot
 		public void StartDBWorker ()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
-			pathToDatabase = Path.Combine (documents, "NewSaveMySpot.db");
+			pathToDatabase = Path.Combine (documents, "FlarganSaveMySpot.db");
 
 			CheckAndCreateDatabase (pathToDatabase);
 		}

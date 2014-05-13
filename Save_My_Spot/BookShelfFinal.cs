@@ -24,7 +24,7 @@ namespace Save_My_Spot
 			base.ViewDidLoad ();
 
 			this.Title = "BookShelf";
-
+			// toggles the UITableView's Editing property from false to true
 			this.NavigationItem.LeftBarButtonItem = this.EditButtonItem;
 
 			//TODO: does this need to be a class var to avoid gc?
@@ -49,6 +49,7 @@ namespace Save_My_Spot
 			dbPath = _dbWorker.GetPathToDb ();
 
 			var conn = new SQLiteConnection (dbPath);
+			// this seems redundant. 
 			foreach (var item in conn.Table<SongToSave>()) {
 				var tempSong = new SongToSave () {
 					BookTitle = item.BookTitle,
@@ -58,7 +59,7 @@ namespace Save_My_Spot
 				_loader.Add (tempSong);
 			}
 			conn.Close ();
-
+			// why am I using two list?
 			_newSL = _loader;
 
 			TableView.ReloadData ();
@@ -96,7 +97,7 @@ namespace Save_My_Spot
 
 			public override UITableViewCellEditingStyle EditingStyleForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				UITableViewCellEditingStyle editingStyle;
+				UITableViewCellEditingStyle editingStyle = UITableViewCellEditingStyle.Delete;
 
 				if (indexPath.Row == 0) {
 					editingStyle = UITableViewCellEditingStyle.None;

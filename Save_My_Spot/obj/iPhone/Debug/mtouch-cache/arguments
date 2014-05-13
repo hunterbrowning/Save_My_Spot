@@ -28,7 +28,7 @@
 	-debug \
 	-linksdkonly \
 	-sdk \
-	7.0 \
+	7.1 \
 	-targetver \
 	7.0 \
 	--abi=armv7 \

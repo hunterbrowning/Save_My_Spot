@@ -1,10 +1,10 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.1" />
+﻿<Properties GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Save_My_Spot/PlayBackScreen.cs">
     <Files>
       <File FileName="Save_My_Spot/AppDelegate.cs" Line="1" Column="1" />
       <File FileName="Save_My_Spot/BookShelfFinal.cs" Line="1" Column="1" />
-      <File FileName="Save_My_Spot/PlayBackScreen.cs" Line="99" Column="4" />
+      <File FileName="Save_My_Spot/PlayBackScreen.cs" Line="196" Column="6" />
       <File FileName="Save_My_Spot/Info.plist" />
     </Files>
   </MonoDevelop.Ide.Workbench>

@@ -10,6 +10,7 @@ using SQLite;
 
 namespace Save_My_Spot
 {
+	// flargan!!
 	public partial class PlayBackScreen : UIViewController
 	{
 		MPMusicPlayerController _musicPlayer;
@@ -28,6 +29,7 @@ namespace Save_My_Spot
 		public string resumePassTitle;
 		public string resumePassAuthor;
 		public int pickerStateValue;
+		public double resumeVaultVal;
 
 		public PlayBackScreen (int resumeValue, string resumeTitle, string resumeAuthor) : base ("PlayBackScreen", null)
 		{
@@ -182,6 +184,8 @@ namespace Save_My_Spot
 				// can I use the playback state for this if statement instead PlayPauseSwitch?
 				if (PlayPauseSwitch == null || PlayPauseSwitch == "play"){
 					PlayPauseSwitch = "pause";
+					_musicPlayer.CurrentPlaybackTime = ResumePointVault;
+					Console.WriteLine("playcurrentspot: {0}", _musicPlayer.CurrentPlaybackTime);
 					_musicPlayer.Play();
 					stopBtn.Enabled = true;
 					timerBtn.Enabled = true;
@@ -193,6 +197,7 @@ namespace Save_My_Spot
 				}
 				else{
 					PlayPauseSwitch = "play";
+					ResumePointVault = _musicPlayer.CurrentPlaybackTime;
 					_musicPlayer.Pause();
 					refreshTimer.Invalidate();
 				}
@@ -266,9 +271,7 @@ namespace Save_My_Spot
 				}
 				Console.WriteLine("Author Saving: " + stopAuthor); // debugging 
 				double startingPoint = _musicPlayer.CurrentPlaybackTime;
-
-//				UIAlertView alert = new UIAlertView("Position Saved", stopTitle, null, "OK", null);
-//				alert.Show();
+				Console.WriteLine ("Stopping point: {0}", startingPoint);
 
 				var query = conn.Table<SongToSave>().Where(q => q.BookTitle == stopTitle);
 				SongToSave sts;
@@ -404,7 +407,7 @@ namespace Save_My_Spot
 				MPMediaItem mediaItem = mediaItemCollection.Items [0];
 
 				try{
-					_playBackScreen.artistLbl.Text = mediaItem.ValueForProperty ("artist").ToString ();
+					_playBackScreen.artistLbl.Text = mediaItem.AlbumArtist.ToString();
 				}
 				catch{
 					_playBackScreen.artistLbl.Text = "No artisit";
@@ -431,6 +434,12 @@ namespace Save_My_Spot
 			set{playPauseValue = value; }
 		}
 
+		public double ResumePointVault
+		{
+			get { return resumeVaultVal; }
+			set { resumeVaultVal = value; }
+		}
+
 		public void PlayPauseImage(string val)
 		{
 			if (val == "1") {
@@ -453,14 +462,15 @@ namespace Save_My_Spot
 			foreach (var result in resumeQuery) {
 				aVeryGoodPlaceToStart = result.PlayPosition - 30;
 			}
+			ResumePointVault = aVeryGoodPlaceToStart;
 			_mediaQuery = new MPMediaQuery ();
 			var value = NSNumber.FromInt32 ((int)MPMediaType.Music); //type of media to return
-			var property = MPMediaItemProperty.MediaType; 
+			var property = MPMediaItem.MediaTypeProperty;
 			var predicate = MPMediaPropertyPredicate.PredicateWithValue (value, property);
 			_mediaQuery.AddFilterPredicate (predicate);
 
 			var valueTwo = NSString.FromObject ((String)chosenTitle);
-			var propertyTwo = MPMediaItemProperty.Title;
+			var propertyTwo = MPMediaItem.TitleProperty;
 			var predicateTwo = MPMediaPropertyPredicate.PredicateWithValue (valueTwo, propertyTwo);
 			_mediaQuery.AddFilterPredicate (predicateTwo);
 			_musicPlayer = new MPMusicPlayerController ();
@@ -468,7 +478,7 @@ namespace Save_My_Spot
 
 			_musicPlayer.SetQueue (_mediaQuery);
 			_musicPlayer.CurrentPlaybackTime = aVeryGoodPlaceToStart;
-
+			Console.WriteLine ("afterQueSet: {0}", _musicPlayer.CurrentPlaybackTime);
 			positionSkipBtn.Enabled = true;
 
 			// set the end file length
@@ -480,7 +490,7 @@ namespace Save_My_Spot
 
 			string aVeryGoodPlaceToStartDisplay = string.Format("{0:#0}:{1:00}:{2:00}",startingPlaceInt/3600,(startingPlaceInt/60)%60,startingPlaceInt%60);
 			currentTimeLbl.Text = aVeryGoodPlaceToStartDisplay;
-		
+			Console.WriteLine ("resume point: {0}", aVeryGoodPlaceToStart); // debugging
 			positionSld.MaxValue = (float)(fileLengthRaw);
 			positionSld.SetValue ((float)(aVeryGoodPlaceToStart), true);
 
@@ -490,6 +500,7 @@ namespace Save_My_Spot
 
 			playPauseBtn.Enabled = true;
 			Console.WriteLine ("ran righ over it"); // debugging
+			Console.WriteLine ("attheresumeend: {0}", _musicPlayer.CurrentPlaybackTime);
 		}
 	}
 }
